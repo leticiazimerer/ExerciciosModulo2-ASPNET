@@ -13,9 +13,10 @@ namespace BlogPessoalVS.src.repositorios
     public interface ITema
     {
         void NovoTema(NovoTemaDTO tema); // DTO: DATA TRANSFER OBJECT / precisamos criar uma classe "UsuarioDTO" onde colocaremos as classes (AtualizarUsuarioDTO e NovoUsuarioDTO) por isso criamos a pasta dtos dentro da pasta scr
-        void AtualizarTema(AtualizarTemaDTO Tema); // precisamos criar uma classe "AtualizarUsuarioDTO"
+        void AtualizarTema(AtualizarTemaDTO tema); // precisamos criar uma classe "AtualizarUsuarioDTO"
         void DeletarTema(int id);
         TemaModelo PegarTemaPeloId(int id);
         List<TemaModelo> PegarTemaPelaDescricao(string descricao); // quando pesquisar algo, teremos muitos temas
+        List<TemaModelo> PegarTodosTemas();
     }
 }

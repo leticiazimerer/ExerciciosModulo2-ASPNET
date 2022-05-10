@@ -26,7 +26,6 @@ C:\Users\User\Desktop\Generation\Exerciciosmodulo1\APS.NET\BlogPessoalVS\BlogPes
 C:\Users\User\Desktop\Generation\Exerciciosmodulo1\APS.NET\BlogPessoalVS\BlogPessoalVS\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
 C:\Users\User\Desktop\Generation\Exerciciosmodulo1\APS.NET\BlogPessoalVS\BlogPessoalVS\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\User\Desktop\Generation\Exerciciosmodulo1\APS.NET\BlogPessoalVS\BlogPessoalVS\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
-C:\Users\User\Desktop\Generation\Exerciciosmodulo1\APS.NET\BlogPessoalVS\BlogPessoalVS\bin\Debug\net5.0\Newtonsoft.Json.dll
 C:\Users\User\Desktop\Generation\Exerciciosmodulo1\APS.NET\BlogPessoalVS\BlogPessoalVS\bin\Debug\net5.0\System.Configuration.ConfigurationManager.dll
 C:\Users\User\Desktop\Generation\Exerciciosmodulo1\APS.NET\BlogPessoalVS\BlogPessoalVS\bin\Debug\net5.0\System.Diagnostics.DiagnosticSource.dll
 C:\Users\User\Desktop\Generation\Exerciciosmodulo1\APS.NET\BlogPessoalVS\BlogPessoalVS\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
@@ -53,3 +52,4 @@ C:\Users\User\Desktop\Generation\Exerciciosmodulo1\APS.NET\BlogPessoalVS\BlogPes
 C:\Users\User\Desktop\Generation\Exerciciosmodulo1\APS.NET\BlogPessoalVS\BlogPessoalVS\obj\Debug\net5.0\BlogPessoalVS.pdb
 C:\Users\User\Desktop\Generation\Exerciciosmodulo1\APS.NET\BlogPessoalVS\BlogPessoalVS\obj\Debug\net5.0\BlogPessoalVS.genruntimeconfig.cache
 C:\Users\User\Desktop\Generation\Exerciciosmodulo1\APS.NET\BlogPessoalVS\BlogPessoalVS\obj\Debug\net5.0\ref\BlogPessoalVS.dll
+C:\Users\User\Desktop\Generation\Exerciciosmodulo1\APS.NET\BlogPessoalVS\BlogPessoalVS\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

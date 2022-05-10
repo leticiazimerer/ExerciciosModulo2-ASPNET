@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using BlogPessoalVS.src.utilidades;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
@@ -25,6 +26,9 @@ namespace BlogPessoalVS.src.modelos
         public string Senha { get; set; }
 
         public string Foto { get; set; } // foto tambem é string e nao precisa colocar que tem limitação de string
+
+        [Required]
+        public TipoUsuario Tipo { get; set; } // api security
 
         [JsonIgnore] // o usuario le a postagem e a postagem le o usuario, pode dar um looping, por isso precisamos ignorar / se nao vamos ler o postagem pelo usuario, colocamos "json"
         public List<PostagemModelo> MinhasPostagens { get; set; } // conexao com a classe postagem / minhas postagens é o nome que demos

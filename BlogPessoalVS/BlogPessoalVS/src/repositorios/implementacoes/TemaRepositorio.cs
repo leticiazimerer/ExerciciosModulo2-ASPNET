@@ -19,7 +19,7 @@ namespace BlogPessoalVS.src.repositorios.implementacoes
 
         public TemaRepositorio(BlogPessoalVSContext contexto)
         {
-            contexto = _contexto;
+            _contexto = contexto;
         }
 
         #endregion Construtores
@@ -62,10 +62,8 @@ namespace BlogPessoalVS.src.repositorios.implementacoes
 
         public TemaModelo PegarTemaPeloId(int id)
         {
-            return _contexto.Temas.FirstOrDefault(u => u.Id == id);
+            return _contexto.Temas.FirstOrDefault(t => t.Id == id);
         }
-
-
         #endregion Metodos
     }
 }

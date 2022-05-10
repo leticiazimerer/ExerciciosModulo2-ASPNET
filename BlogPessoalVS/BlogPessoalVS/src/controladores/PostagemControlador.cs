@@ -1,5 +1,6 @@
 ﻿using BlogPessoalVS.src.dtos;
 using BlogPessoalVS.src.repositorios;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogPessoalVS.src.controladores
@@ -12,6 +13,7 @@ namespace BlogPessoalVS.src.controladores
         #region Atributos
         private readonly IPostagem _repositorio;
         #endregion
+
         #region Construtores
         public PostagemControlador(IPostagem repositorio)
         {
@@ -21,6 +23,7 @@ namespace BlogPessoalVS.src.controladores
 
         #region Métodos
         [HttpGet("id/{idPostagem}")]
+        [Authorize]
         public IActionResult PegarPostagemPeloId([FromRoute] int idPostagem)
         {
             var postagem = _repositorio.PegarPostagemPeloId(idPostagem);
@@ -30,22 +33,30 @@ namespace BlogPessoalVS.src.controladores
         }
 
         [HttpGet]
-        public IActionResult PegarTemaPelaDescricao([FromQuery] string descricaopostagem)
+        [Authorize]
+        public IActionResult PegarTodasPostagens()
         {
-            var postagem = _repositorio.PegarPostagemPelaDescricao(descricaopostagem);
-            if (postagem.Count < 1) return NoContent();
-            return Ok(postagem);
+            var lista = _repositorio.PegarTodasPostagens();
+
+            if (lista.Count < 1) return NoContent();
+
+            return Ok(lista);
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult NovaPostagem([FromBody] NovaPostagemDTO postagem)
         {
             if (!ModelState.IsValid) return BadRequest();
+
             _repositorio.NovaPostagem(postagem);
-            return Created($"api/Postagem/{postagem.Descricao}", postagem);
+
+            return Created($"api/Postagens", postagem);
         }
 
+
         [HttpPut]
+        [Authorize]
         public IActionResult AtualizarPostagem([FromBody] AtualizarPostagemDTO postagem)
         {
             if (!ModelState.IsValid) return BadRequest();
@@ -54,6 +65,7 @@ namespace BlogPessoalVS.src.controladores
         }
 
         [HttpDelete("deletar/{idPostagem}")]
+        [Authorize]
         public IActionResult DeletarPostagem([FromRoute] int idPostagem)
         {
             _repositorio.DeletarPostagem(idPostagem);

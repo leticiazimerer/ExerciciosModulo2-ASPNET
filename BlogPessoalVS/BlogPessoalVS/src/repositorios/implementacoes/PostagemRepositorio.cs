@@ -29,24 +29,85 @@ namespace BlogPessoalVS.src.repositorios.implementacoes
 
         public List<PostagemModelo> PegarTodasPostagens()
         {
-            return _contexto.Postagens.ToList();
+            return _contexto.Postagens
+                .Include(p => p.Criador)
+                .Include(p => p.Tema)
+                .ToList();
         }
 
-        public void AtualizarPostagem(AtualizarPostagemDTO postagem)
+        public PostagemModelo PegarPostagemPeloId(int id)
         {
-            var postagemExistente = PegarPostagemPeloId(postagem.Id);
-            postagemExistente.Titulo = postagem.Titulo;
-            postagemExistente.Descricao = postagem.Descricao;
-            postagemExistente.Foto = postagem.Foto;
-            postagemExistente.Tema = _contexto.Temas.FirstOrDefault(t => t.Descricao == postagem.DescricaoTema);
-            _contexto.Postagens.Update(postagemExistente);
-            _contexto.SaveChanges();
+            return _contexto.Postagens.FirstOrDefault(u => u.Id == id);
         }
 
-        public void DeletarPostagem(int id)
+        public List<PostagemModelo> PegarPostagensPorPesquisa(
+            string titulo,
+            string descricaoTema,
+            string nomeCriador)
         {
-            _contexto.Postagens.Remove(PegarPostagemPeloId(id));
-            _contexto.SaveChanges();
+            switch (titulo, descricaoTema, nomeCriador)
+            {
+                case (null, null, null):
+                    return PegarTodasPostagens();
+
+                case (null, null, _):
+                    return _contexto.Postagens
+                        .Include(p => p.Tema)
+                        .Include(p => p.Criador)
+                        .Where(p => p.Criador.Nome.Contains(nomeCriador))
+                        .ToList();
+
+                case (null, _, null):
+                    return _contexto.Postagens
+                        .Include(p => p.Tema)
+                        .Include(p => p.Criador)
+                        .Where(p => p.Tema.Descricao.Contains(descricaoTema))
+                        .ToList();
+
+                case (_, null, null):
+                    return _contexto.Postagens
+                        .Include(p => p.Tema)
+                        .Include(p => p.Criador)
+                        .Where(p => p.Titulo.Contains(titulo))
+                        .ToList();
+
+                case (_, _, null):
+                    return _contexto.Postagens
+                        .Include(p => p.Tema)
+                        .Include(p => p.Criador)
+                        .Where(p =>
+                        p.Titulo.Contains(titulo) &
+                        p.Tema.Descricao.Contains(descricaoTema))
+                        .ToList();
+
+                case (null, _, _):
+                    return _contexto.Postagens
+                        .Include(p => p.Tema)
+                        .Include(p => p.Criador)
+                        .Where(p =>
+                        p.Tema.Descricao.Contains(descricaoTema) &
+                        p.Criador.Nome.Contains(nomeCriador))
+                        .ToList();
+
+                case (_, null, _):
+                    return _contexto.Postagens
+                        .Include(p => p.Tema)
+                        .Include(p => p.Criador)
+                        .Where(p =>
+                        p.Titulo.Contains(titulo) &
+                        p.Criador.Nome.Contains(nomeCriador))
+                        .ToList();
+
+                case (_, _, _):
+                    return _contexto.Postagens
+                        .Include(p => p.Tema)
+                        .Include(p => p.Criador)
+                        .Where(p =>
+                        p.Titulo.Contains(titulo) |
+                        p.Tema.Descricao.Contains(descricaoTema) |
+                        p.Criador.Nome.Contains(nomeCriador))
+                        .ToList();
+            }
         }
 
         public void NovaPostagem(NovaPostagemDTO postagem)
@@ -59,84 +120,31 @@ namespace BlogPessoalVS.src.repositorios.implementacoes
                 Criador = _contexto.Usuarios.FirstOrDefault(u => u.Email == postagem.EmailCriador),
                 Tema = _contexto.Temas.FirstOrDefault(t => t.Descricao == postagem.DescricaoTema)
             });
+            _contexto.SaveChanges();
         }
 
-        public List<PostagemModelo> PegarPostagemPelaDescricao(string titulo, string descricaoTema, string nomeCriador)
+        public void AtualizarPostagem(AtualizarPostagemDTO postagem)
         {
-            switch (titulo, descricaoTema, nomeCriador)
-            {
-                case (null, null, null): return PegarTodasPostagens();
+            var postagemExistente = PegarPostagemPeloId(postagem.Id);
+            postagemExistente.Titulo = postagem.Titulo;
+            postagemExistente.Descricao = postagem.Descricao;
+            postagemExistente.Foto = postagem.Foto;
+            postagemExistente.Tema = _contexto.Temas.FirstOrDefault(t => t.Descricao == postagem.DescricaoTema);
 
-                case (null, null, _):
-                    return _contexto.Postagens
-                    .Include(p => p.Tema)
-                    .Include(p => p.Criador)
-                    .Where(p => p.Criador.Nome.Contains(nomeCriador))
-                    .ToList();
-
-                case (null, _, null):
-                    return _contexto.Postagens
-                        .Include(p => p.Tema)
-                        .Include(p => p.Criador)
-                        .Where(p => p.Titulo.Contains(titulo))
-                        .ToList();
-                case (_, null, null):
-                    return _contexto.Postagens
-                    .Include(p => p.Tema)
-                    .Include(p => p.Criador)
-                    .Where(p => p.Titulo.Contains(titulo))
-                    .ToList();
-                case (_, _, null):
-                    return _contexto.Postagens
-                    .Include(p => p.Tema)
-                    .Include(p => p.Criador)
-                    .Where(p =>
-                    p.Titulo.Contains(titulo) &
-                    p.Tema.Descricao.Contains(descricaoTema))
-                    .ToList();
-                case (null, _, _):
-                    return _contexto.Postagens
-                    .Include(p => p.Tema)
-                    .Include(p => p.Criador)
-                    .Where(p =>
-                    p.Tema.Descricao.Contains(descricaoTema) &
-                    p.Criador.Nome.Contains(nomeCriador))
-                    .ToList();
-                case (_, null, _):
-                    return _contexto.Postagens
-                    .Include(p => p.Tema)
-                    .Include(p => p.Criador)
-                    .Where(p =>
-                    p.Titulo.Contains(titulo) &
-                    p.Criador.Nome.Contains(nomeCriador))
-                    .ToList();
-                case (_, _, _):
-                    return _contexto.Postagens
-                    .Include(p => p.Tema)
-                    .Include(p => p.Criador)
-                    .Where(p =>
-                    p.Titulo.Contains(titulo) |
-                    p.Tema.Descricao.Contains(descricaoTema) |
-                    p.Criador.Nome.Contains(nomeCriador))
-                    .ToList();
-            }
+            _contexto.Postagens.Update(postagemExistente);
+            _contexto.SaveChanges();
         }
 
-        public PostagemModelo PegarPostagemPeloId(int id)
+        public void DeletarPostagem(int id)
         {
-            return _contexto.Postagens.FirstOrDefault(u => u.Id == id);
+            _contexto.Postagens.Remove(PegarPostagemPeloId(id));
+            _contexto.SaveChanges();
         }
 
-        public List<PostagemModelo> PegarPostagemPeloTitulo(string titulo)
+        public List<PostagemModelo> PegarPostagemPorPesquisa(string titulo, string descricaoTema, string nomeCriador)
         {
             throw new System.NotImplementedException();
         }
-
-        public List<PostagemModelo> PegarPostagemPelaDescricao(string descricao)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        #endregion Metodos
+        #endregion Métodos
     }
 }

@@ -17,8 +17,6 @@ namespace BlogPessoalVS.src.repositorios
         void DeletarPostagem(int id); // deleta a postagem pelo id
         PostagemModelo PegarPostagemPeloId(int id); // retorna uma postagem
         List<PostagemModelo> PegarTodasPostagens(); // nao precisa de parametro "();" pq eh so ir lá e pegar as postagens
-        List<PostagemModelo> PegarPostagemPeloTitulo(string titulo); // precisa de parametro pq pegara do titulo
-        List<PostagemModelo> PegarPostagemPelaDescricao(string descricao); // precisa de parametro pq pegara da descricao
-        
+        List<PostagemModelo> PegarPostagemPorPesquisa(string titulo, string descricaoTema, string nomeCriador); // precisa de parametro pq pegara do titulo
     }
 }

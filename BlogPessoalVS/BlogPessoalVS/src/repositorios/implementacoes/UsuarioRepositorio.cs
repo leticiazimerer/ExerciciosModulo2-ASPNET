@@ -48,7 +48,8 @@ namespace BlogPessoalVS.src.repositorios.implementacoes
                 Email = usuario.Email,
                 Nome = usuario.Nome,
                 Senha = usuario.Senha,
-                Foto = usuario.Foto
+                Foto = usuario.Foto,
+                Tipo = usuario.Tipo
             });
             _contexto.SaveChanges();
         }
@@ -63,20 +64,17 @@ namespace BlogPessoalVS.src.repositorios.implementacoes
             return _contexto.Usuarios.FirstOrDefault(u => u.Id == id);
         }
 
-        public UsuarioModelo PegarUsuarioPeloNome(string nome)
-        {
-            return _contexto.Usuarios.FirstOrDefault(u => u.Nome == nome);
-            /*return _contexto.Usuarios
-                .Where(u => u.Nome.Contains(nome))
-                .ToList();
-            */
-        }
-
-        List<UsuarioModelo> IUsuario.PegarUsuarioPeloNome(string nome)
+        public List<UsuarioModelo> PegarUsuarioPeloNome(string nome)
         {
             throw new System.NotImplementedException();
         }
 
+        public List<UsuarioModelo> PegarUsuariosPeloNome(string nome)
+        {
+            return _contexto.Usuarios
+                        .Where(u => u.Nome.Contains(nome))
+                        .ToList();
+        }
         #endregion Metodos
     }
 }
