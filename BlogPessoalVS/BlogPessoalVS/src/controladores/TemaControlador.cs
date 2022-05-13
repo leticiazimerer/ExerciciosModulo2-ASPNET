@@ -2,6 +2,7 @@
 using BlogPessoalVS.src.repositorios;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace BlogPessoalVS.src.controladores
 {
@@ -24,50 +25,56 @@ namespace BlogPessoalVS.src.controladores
         #region Métodos
         [HttpGet("id/{idTema}")]
         [Authorize]
-        public IActionResult PegarTemaPeloId([FromRoute] int idTema)
+        public async Task<ActionResult> PegarTemaPeloIdAsync([FromRoute] int idTema)
         {
-            var tema = _repositorio.PegarTemaPeloId(idTema);
+            var tema = await _repositorio.PegarTemaPeloIdAsync(idTema);
             if (tema == null) return NotFound();
             return Ok(tema);
         }
 
-       [HttpGet("pesquisa")]
+        [HttpGet("pesquisa")]
         [Authorize]
-        public IActionResult PegarTemasPelaDescricao([FromQuery] string descricaoTema)
+        public async Task<ActionResult> PegarTemaPelaDescricaoAsync([FromQuery] string descricaoTema)
         {
-            var temas = _repositorio.PegarTemaPelaDescricao(descricaoTema);
-
+            var temas = await _repositorio.PegarTemaPelaDescricaoAsync(descricaoTema);
             if (temas.Count < 1) return NoContent();
-            
             return Ok(temas);
         }
 
         [HttpPost]
         [Authorize]
-        public IActionResult NovoTema([FromBody] NovoTemaDTO tema)
+        public async Task<ActionResult> NovoTemaAsync([FromBody] NovoTemaDTO tema)
         {
             if (!ModelState.IsValid) return BadRequest();
-            _repositorio.NovoTema(tema);
+            await _repositorio.NovoTemaAsync(tema);
             return Created($"api/Temas", tema);
         }
 
         [HttpPut]
         [Authorize(Roles ="ADMINISTRADOR")]
-        public IActionResult AtualizarTema([FromBody] AtualizarTemaDTO tema)
+        public async Task<ActionResult> AtualizarTemaAsync([FromBody] AtualizarTemaDTO tema)
         {
             if (!ModelState.IsValid) return BadRequest();
-            _repositorio.AtualizarTema(tema);
+            await _repositorio.AtualizarTemaAsync(tema);
             return Ok(tema);
         }
 
         [HttpDelete("deletar/{idTema}")]
         [Authorize(Roles = "ADMINISTRADOR")]
-        public IActionResult DeletarTema([FromRoute] int idTema)
+        public async Task<ActionResult> DeletarTemaAsync([FromRoute] int idTema)
         {
-            _repositorio.DeletarTema(idTema);
+            await _repositorio.DeletarTemaAsync(idTema);
             return NoContent();
         }
 
+        [HttpGet]
+        [Authorize]
+        public async Task<ActionResult> PegarTodosTemasAsync()
+        {
+            var lista = await _repositorio.PegarTodosTemasAsync();
+            if (lista.Count < 1) return NoContent();
+            return Ok(lista);
+        }
         #endregion
     }
 }

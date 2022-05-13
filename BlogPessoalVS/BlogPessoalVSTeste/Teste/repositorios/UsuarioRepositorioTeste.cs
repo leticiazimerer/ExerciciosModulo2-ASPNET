@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using BlogPessoalVS.src.data;
 using BlogPessoalVS.src.dtos;
-using BlogPessoalVS.src.repositorios;
 using BlogPessoalVS.src.repositorios.implementacoes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -31,10 +30,10 @@ namespace BlogPessoalVSTeste.Teste.repositorios
         }
 
         [TestMethod]
-        public void CriarQuatroUsuariosNoBancoRetornaQuatroUsuarios()
+        public async Task CriarQuatroUsuariosNoBancoRetornaQuatroUsuarios()
         {
             //GIVEN - Dado que registro 4 usuarios no banco
-            _repositorio.NovoUsuario(
+            await _repositorio.NovoUsuarioAsync(
                  new NovoUsuarioDTO(
                      1,
                      "Leticia Zimerer",
@@ -44,7 +43,7 @@ namespace BlogPessoalVSTeste.Teste.repositorios
                      TipoUsuario.NORMAL
                      ));
 
-            _repositorio.NovoUsuario(
+            await _repositorio.NovoUsuarioAsync(
                  new NovoUsuarioDTO(
                      2,
                      "Cleiton Ferreira de Moraes",
@@ -53,7 +52,7 @@ namespace BlogPessoalVSTeste.Teste.repositorios
                      "URLFOTO", 
                      TipoUsuario.NORMAL));
 
-            _repositorio.NovoUsuario(
+            await _repositorio.NovoUsuarioAsync(
                  new NovoUsuarioDTO(
                      3,
                      "Arthur Zimerer de Moraes",
@@ -62,7 +61,7 @@ namespace BlogPessoalVSTeste.Teste.repositorios
                      "URLFOTO",
                      TipoUsuario.NORMAL));
 
-            _repositorio.NovoUsuario(
+            await _repositorio.NovoUsuarioAsync(
                  new NovoUsuarioDTO(
                      4,
                      "Jade Zimerer de Moraes",
@@ -76,10 +75,10 @@ namespace BlogPessoalVSTeste.Teste.repositorios
             Assert.AreEqual(4, _contexto.Usuarios.Count());
         }
         [TestMethod]
-        public void PegarUsuarioPeloEmailRetornaNaoNulo()
+        public async Task PegarUsuarioPeloEmailRetornaNaoNulo()
         {
             //GIVEN - Dado que registro um usuario no banco
-            _repositorio.NovoUsuario(
+            await _repositorio.NovoUsuarioAsync(
                 new NovoUsuarioDTO(
                     5,
                     "Estela Zimerer de Moraes",
@@ -89,17 +88,17 @@ namespace BlogPessoalVSTeste.Teste.repositorios
                     TipoUsuario.NORMAL));
 
             //WHEN - Quando pesquiso pelo email deste usuario
-            var user = _repositorio.PegarUsuarioPeloEmail("estelazimerer@gmail.com");
+            var user = await _repositorio.PegarUsuarioPeloEmailAsync("estelazimerer@gmail.com");
 
             //THEN - Então obtenho um usuario
             Assert.IsNotNull(user);
 
         }
         [TestMethod]
-        public void PegarUsuarioPeloIdRetornaNaoNuloENomeDoUsuario()
+        public async Task PegarUsuarioPeloIdRetornaNaoNuloENomeDoUsuario()
         {
             //GIVEN - Dado que registro um usuario no banco
-            _repositorio.NovoUsuario(
+            await _repositorio.NovoUsuarioAsync(
             new NovoUsuarioDTO(
                 6,
                 "Fernanda Zimerer de Moraes",
@@ -109,7 +108,7 @@ namespace BlogPessoalVSTeste.Teste.repositorios
                 TipoUsuario.NORMAL));
 
             //WHEN - Quando pesquiso pelo id 6
-            var user = _repositorio.PegarUsuarioPeloId(6);
+            var user = await _repositorio.PegarUsuarioPeloIdAsync(6);
 
             //THEN - Então, deve me retornar um elemento não nulo
             Assert.IsNotNull(user);
@@ -119,10 +118,10 @@ namespace BlogPessoalVSTeste.Teste.repositorios
         }
 
         [TestMethod]
-        public void AtualizarUsuarioRetornaUsuarioAtualizado()
+        public async Task AtualizarUsuarioRetornaUsuarioAtualizado()
         {
             //GIVEN - Dado que registro um usuario no banco
-            _repositorio.NovoUsuario(
+            await _repositorio.NovoUsuarioAsync(
             new NovoUsuarioDTO(
                 7,
                 "Clara Zimerer",
@@ -133,9 +132,8 @@ namespace BlogPessoalVSTeste.Teste.repositorios
 
             //WHEN - Quando atualizamos o usuario
             var antigo =
-            _repositorio.PegarUsuarioPeloEmail("clarazimerer@gmail.com");
-            _repositorio.AtualizarUsuario(
-            new AtualizarUsuarioDTO(
+            await _repositorio.PegarUsuarioPeloEmailAsync("clarazimerer@gmail.com");
+            await _repositorio.AtualizarUsuarioAsync(new AtualizarUsuarioDTO(
                 8,
             "Clara Zimerer",
             "123456",

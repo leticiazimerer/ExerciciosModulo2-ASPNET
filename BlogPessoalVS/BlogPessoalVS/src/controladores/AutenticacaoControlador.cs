@@ -3,6 +3,7 @@ using BlogPessoalVS.src.servicos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Threading.Tasks;
 
 namespace BlogPessoalVS.src.controladores
 { 
@@ -23,12 +24,12 @@ namespace BlogPessoalVS.src.controladores
         #region Métodos
         [HttpPost]
         [AllowAnonymous] // qlq pessoa (anomina) pode autenticar
-        public IActionResult Autenticar([FromBody] AutenticarDTO autenticacao)
+        public async Task<ActionResult> AutenticarAsync([FromBody] AutenticarDTO autenticacao)
         {
             if (!ModelState.IsValid) return BadRequest();
             try
             {
-                var autorizacao = _servicos.PegarAutorizacao(autenticacao);
+                var autorizacao = await _servicos.PegarAutorizacaoAsync(autenticacao);
                 return Ok(autorizacao);
             }
             catch (Exception ex)

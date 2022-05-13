@@ -1,13 +1,14 @@
 ﻿using BlogPessoalVS.src.dtos;
 using BlogPessoalVS.src.modelos;
+using System.Threading.Tasks;
 
 namespace BlogPessoalVS.src.servicos
 {
     public interface IAutenticacao
     {
         string CodificarSenha(string senha);
-        void CriarUsuarioSemDuplicar(NovoUsuarioDTO dto);
+        Task CriarUsuarioSemDuplicarAsync(NovoUsuarioDTO dto);
         string GerarToken(UsuarioModelo usuario);
-        AutorizacaoDTO PegarAutorizacao(AutenticarDTO dto);
+        Task <AutorizacaoDTO> PegarAutorizacaoAsync(AutenticarDTO dto);
     }
 }

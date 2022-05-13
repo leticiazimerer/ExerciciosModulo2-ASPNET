@@ -1,6 +1,7 @@
 ﻿using BlogPessoalVS.src.dtos;
 using BlogPessoalVS.src.modelos;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BlogPessoalVS.src.repositorios
 {
@@ -12,11 +13,11 @@ namespace BlogPessoalVS.src.repositorios
     /// </summary>
     public interface IPostagem
     {
-        void NovaPostagem(NovaPostagemDTO postagem);
-        void AtualizarPostagem(AtualizarPostagemDTO postagem);
-        void DeletarPostagem(int id); // deleta a postagem pelo id
-        PostagemModelo PegarPostagemPeloId(int id); // retorna uma postagem
-        List<PostagemModelo> PegarTodasPostagens(); // nao precisa de parametro "();" pq eh so ir lá e pegar as postagens
-        List<PostagemModelo> PegarPostagemPorPesquisa(string titulo, string descricaoTema, string nomeCriador); // precisa de parametro pq pegara do titulo
+        Task NovaPostagemAsync(NovaPostagemDTO postagem);
+        Task AtualizarPostagemAsync(AtualizarPostagemDTO postagem);
+        Task DeletarPostagemAsync(int id); // deleta a postagem pelo id
+        Task<PostagemModelo> PegarPostagemPeloIdAsync(int id); // retorna uma postagem
+        Task<List<PostagemModelo>> PegarTodasPostagensAsync(); // nao precisa de parametro "();" pq eh so ir lá e pegar as postagens
+        Task<List<PostagemModelo>> PegarPostagemPorPesquisaAsync(string titulo, string descricaoTema, string nomeCriador); // precisa de parametro pq pegara do titulo
     }
 }
