@@ -5,7 +5,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace BlogPessoalVS.src.modelos
-{
+{ 
+      /// <summary>
+      /// <para>Resumo> Classe responsavel por representar tb_usuarios no banco</para>
+      /// <para>Criado por: Leticia Zimerer</para>
+      /// <para>Versão: 1.0</para>
+      /// <para>Data: 13/05/2022</para>
+      /// </summary>
     [Table("tb_usuarios")] // tem que ficar acima de onde ela faz referencia (usuario modelo)
     public class UsuarioModelo
     {

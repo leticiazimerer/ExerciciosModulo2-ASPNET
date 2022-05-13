@@ -53,3 +53,10 @@ C:\Users\User\Desktop\Generation\Exerciciosmodulo1\APS.NET\BlogPessoalVS\BlogPes
 C:\Users\User\Desktop\Generation\Exerciciosmodulo1\APS.NET\BlogPessoalVS\BlogPessoalVS\obj\Debug\net5.0\BlogPessoalVS.genruntimeconfig.cache
 C:\Users\User\Desktop\Generation\Exerciciosmodulo1\APS.NET\BlogPessoalVS\BlogPessoalVS\obj\Debug\net5.0\ref\BlogPessoalVS.dll
 C:\Users\User\Desktop\Generation\Exerciciosmodulo1\APS.NET\BlogPessoalVS\BlogPessoalVS\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\User\Desktop\Generation\Exerciciosmodulo1\APS.NET\BlogPessoalVS\BlogPessoalVS\bin\Debug\net5.0\Microsoft.OpenApi.dll
+C:\Users\User\Desktop\Generation\Exerciciosmodulo1\APS.NET\BlogPessoalVS\BlogPessoalVS\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\User\Desktop\Generation\Exerciciosmodulo1\APS.NET\BlogPessoalVS\BlogPessoalVS\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\User\Desktop\Generation\Exerciciosmodulo1\APS.NET\BlogPessoalVS\BlogPessoalVS\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\User\Desktop\Generation\Exerciciosmodulo1\APS.NET\BlogPessoalVS\BlogPessoalVS\obj\Debug\net5.0\BlogPessoalVS.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\User\Desktop\Generation\Exerciciosmodulo1\APS.NET\BlogPessoalVS\BlogPessoalVS\bin\Debug\net5.0\BlogPessoalVS.xml
+C:\Users\User\Desktop\Generation\Exerciciosmodulo1\APS.NET\BlogPessoalVS\BlogPessoalVS\obj\Debug\net5.0\BlogPessoalVS.xml

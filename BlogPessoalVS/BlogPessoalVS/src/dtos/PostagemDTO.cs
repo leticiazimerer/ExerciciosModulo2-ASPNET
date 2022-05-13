@@ -3,16 +3,13 @@
 namespace BlogPessoalVS.src.dtos
 {
     /// <summary>
-    /// <para>Resumo> Classe espelho para criar uma nova Postagem</para>
+    /// <para>Resumo> Classe responsavel por representar tb_postagens no banco</para>
     /// <para>Criado por: Leticia Zimerer</para>
     /// <para>Versão: 1.0</para>
-    /// <para>Data: 29/04/2022</para>
+    /// <para>Data: 12/05/2022</para>
     /// </summary>
     public class NovaPostagemDTO
     {
-        [Required]
-        public int Id { get; set; }
-
         [Required] 
         [StringLength(30)] 
         public string Titulo { get; set; }

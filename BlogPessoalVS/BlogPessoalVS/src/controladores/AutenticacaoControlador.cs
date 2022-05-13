@@ -1,6 +1,8 @@
 ﻿using BlogPessoalVS.src.dtos;
+using BlogPessoalVS.src.modelos;
 using BlogPessoalVS.src.servicos;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -22,6 +24,18 @@ namespace BlogPessoalVS.src.controladores
         }
         #endregion
         #region Métodos
+
+        /// <summary>
+        /// Deletar usuario pelo Id
+        /// </summary>
+        /// <param name="autenticacao">int</param>
+        /// <returns>ActionResult</returns>
+        /// <response code="201">Retorna autenticação</response>
+        /// <response code="400">Erro na requisição</response>
+        /// <response code="401">Não autorizado</response>
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(UsuarioModelo))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpPost]
         [AllowAnonymous] // qlq pessoa (anomina) pode autenticar
         public async Task<ActionResult> AutenticarAsync([FromBody] AutenticarDTO autenticacao)

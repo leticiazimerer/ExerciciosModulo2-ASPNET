@@ -28,6 +28,10 @@ namespace BlogPessoalVS.src.repositorios.implementacoes
 
         #region Metodos
 
+        /// <summary>
+        /// Pegar todas as postagens
+        /// </summary>
+        /// <returns>List</returns>
         public async Task<List<PostagemModelo>> PegarTodasPostagensAsync()
         {
             return await _contexto.Postagens
@@ -36,11 +40,23 @@ namespace BlogPessoalVS.src.repositorios.implementacoes
                 .ToListAsync();
         }
 
+        /// <summary>
+        /// <para>Resumo> Método assíncrono para pegar uma postagem pelo Id</para>
+        /// </summary>
+        /// <param nome="id">Id da postagem</param>
+        /// <return>PostagemModelo</return>
         public async Task<PostagemModelo> PegarPostagemPeloIdAsync(int id)
         {
             return await _contexto.Postagens.FirstOrDefaultAsync(u => u.Id == id);
         }
 
+        /// <summary>
+        /// <para>Resumo> Método assíncrono para pegar uma postagem por pesquisa</para>
+        /// </summary>
+        /// <param name="titulo"></param>
+        /// <param name="descricaoTema"></param>
+        /// <param name="nomeCriador"></param>
+        /// <returns>List</returns>
         public async Task<List<PostagemModelo>> PegarPostagemPorPesquisaAsync(
             string titulo,
             string descricaoTema,
@@ -111,6 +127,10 @@ namespace BlogPessoalVS.src.repositorios.implementacoes
             }
         }
 
+        /// <summary>
+        /// <para>Resumo: Método assíncrono para salvar uma nova postagem</para>
+        /// </summary>
+        /// <param name="tema">NovaPostagemDTO</param
         public async Task NovaPostagemAsync(NovaPostagemDTO postagem)
         {
             await _contexto.Postagens.AddAsync(new PostagemModelo
@@ -124,6 +144,10 @@ namespace BlogPessoalVS.src.repositorios.implementacoes
             await _contexto.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// <para>Resumo: Método assíncrono para atualizar a postagem</para>
+        /// </summary>
+        /// <param name="postagem">AtualizarPostagemDTO</param>
         public async Task AtualizarPostagemAsync(AtualizarPostagemDTO postagem)
         {
             var postagemExistente = await PegarPostagemPeloIdAsync(postagem.Id);
@@ -136,6 +160,10 @@ namespace BlogPessoalVS.src.repositorios.implementacoes
             await _contexto.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// <para>Resumo: Método assíncrono para deletar uma postagem</para>
+        /// </summary>
+        /// <param name="id">Id da postagem</param>
         public async Task DeletarPostagemAsync(int id)
         {
             _contexto.Postagens.Remove(await PegarPostagemPeloIdAsync(id));

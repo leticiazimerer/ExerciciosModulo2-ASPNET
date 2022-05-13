@@ -10,9 +10,6 @@ namespace BlogPessoalVS.src.dtos
     /// </summary>
     public class NovoTemaDTO
     {
-        [Required]
-        public int Id { get; set; }
-
         [Required] 
         [StringLength(20)] 
         public string Descricao { get; set; }

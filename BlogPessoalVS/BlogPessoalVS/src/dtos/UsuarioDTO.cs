@@ -11,9 +11,6 @@ namespace BlogPessoalVS.src.dtos
     /// </summary>
     public class NovoUsuarioDTO
     {
-        [Required]
-        public int Id { get; set; }
-
         [Required] 
         [StringLength(50)] 
         public string Nome { get; set; }
@@ -31,9 +28,8 @@ namespace BlogPessoalVS.src.dtos
         [Required]
         public TipoUsuario Tipo { get; set; }
                 
-        public NovoUsuarioDTO(int id, string nome, string email, string senha, string foto, TipoUsuario tipo)
+        public NovoUsuarioDTO(string nome, string email, string senha, string foto, TipoUsuario tipo)
         {
-            Id = id;
             Nome = nome;
             Email = email;
             Senha = senha;

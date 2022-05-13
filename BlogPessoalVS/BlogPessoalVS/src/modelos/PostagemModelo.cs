@@ -3,6 +3,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BlogPessoalVS.src.modelos
 {
+    /// <summary>
+    /// <para>Resumo> Classe responsavel por representar tb_postagens no banco</para>
+    /// <para>Criado por: Leticia Zimerer</para>
+    /// <para>Versão: 1.0</para>
+    /// <para>Data: 13/05/2022</para>
+    /// </summary>
     [Table("tb_postagens")] // uma tabela tem diversas postagens, por isso esta no plural
     public class PostagemModelo
     {

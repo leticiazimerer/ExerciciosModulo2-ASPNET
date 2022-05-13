@@ -1,7 +1,9 @@
 ﻿using BlogPessoalVS.src.dtos;
+using BlogPessoalVS.src.modelos;
 using BlogPessoalVS.src.repositorios;
 using BlogPessoalVS.src.servicos;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -27,6 +29,16 @@ namespace BlogPessoalVS.src.controladores
         #endregion
 
         #region Métodos
+
+        /// <summary>
+        /// Pegar Usuário pelo Id
+        /// </summary>
+        /// <param name="idUsuario">int</param>
+        /// <returns>ActionResult</returns>
+        /// <response code="200">Retorna o usuario</response>
+        /// <response code="404">Usuario não existente</response>
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UsuarioModelo))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("id/{idUsuario}")] // pega (get) algo do iusuario (parametro id)
         [Authorize(Roles ="NORMAL,ADMINISTRADOR")]
         public async Task<ActionResult> PegarUsuarioPeloIdAsync([FromRoute] int idUsuario) // fromroute, coloca o parametro de pesquisa na rota
@@ -36,6 +48,15 @@ namespace BlogPessoalVS.src.controladores
             return Ok(usuario); // se nao for nulo, retornara ok, erro 200
         }
 
+        /// <summary>
+        /// Pegar usuario pelo Nome
+        /// </summary>
+        /// <param name="nomeUsuario">string</param>
+        /// <returns>ActionResult</returns>
+        /// <response code="200">Retorna o usuario</response>
+        /// <response code="204">Nome não existe</response>
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UsuarioModelo))]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpGet]
         [Authorize(Roles = "NORMAL,ADMINISTRADOR")]
         public async Task<ActionResult> PegarUsuarioPeloNomeAsync([FromQuery] string nomeUsuario) // from query, extrai o elemento do parametro
@@ -45,6 +66,15 @@ namespace BlogPessoalVS.src.controladores
             return Ok(usuarios); // retorna uma lista, por isso esta no plural
         }
 
+        /// <summary>
+        /// Pegar usuario pelo Email
+        /// </summary>
+        /// <param name="emailUsuario">string</param>
+        /// <returns>ActionResult</returns>
+        /// <response code="200">Retorna o usuario</response>
+        /// <response code="404">Email não existente</response>
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UsuarioModelo))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("email/{emailUsuario}")]
         [Authorize(Roles = "NORMAL,ADMINISTRADOR")]
         public async Task<ActionResult> PegarUsuarioPeloEmailAsync([FromRoute] string emailUsuario) 
@@ -54,6 +84,30 @@ namespace BlogPessoalVS.src.controladores
             return Ok(usuario); 
         }
 
+        /// <summary>
+        /// Criar novo Usuario
+        /// </summary>
+        /// <param name="usuario">NovoUsuarioDTO</param>
+        /// <returns>ActionResult</returns>
+        /// <remarks>
+        /// Exemplo de requisição:
+        ///
+        ///     POST /api/Usuarios
+        ///     {
+        ///        "nome": "Leticia Zimerer",
+        ///        "email": "leticia@gmail.com",
+        ///        "senha": "1234",
+        ///        "foto": "URLFOTO",
+        ///        "tipo": "NORMAL"
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="201">Retorna usuario criado</response>
+        /// <response code="400">Erro na requisição</response>
+        /// <response code="401">E-mail ja cadastrado</response>
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(UsuarioModelo))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpPost] // cadastra o novo usuario
         [AllowAnonymous]
         public async Task<ActionResult> NovoUsuarioAsync([FromBody] NovoUsuarioDTO usuario) // frombody = usado para cadastrar novas coisas no formulario
@@ -71,6 +125,27 @@ namespace BlogPessoalVS.src.controladores
             }
         }
 
+        /// <summary>
+        /// Atualizar Usuario
+        /// </summary>
+        /// <param name="usuario">AtualizarUsuarioDTO</param>
+        /// <returns>ActionResult</returns>
+        /// <remarks>
+        /// Exemplo de requisição:
+        ///
+        ///     PUT /api/Usuarios
+        ///     {
+        ///        "id": 1,    
+        ///        "nome": "Leticia Zimerer",
+        ///        "senha": "1234",
+        ///        "foto": "URLFOTO"
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="200">Retorna usuario atualizado</response>
+        /// <response code="400">Erro na requisição</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPut]
         [Authorize(Roles = "NORMAL,ADMINISTRADOR")] // autoriza os dois usuarios acessarem esses endpoints
         public async Task<ActionResult> AtualizarUsuarioAsync([FromBody] AtualizarUsuarioDTO usuario)
@@ -81,6 +156,13 @@ namespace BlogPessoalVS.src.controladores
             return Ok(usuario);
         }
 
+        /// <summary>
+        /// Deletar usuario pelo Id
+        /// </summary>
+        /// <param name="idUsuario">int</param>
+        /// <returns>ActionResult</returns>
+        /// <response code="204">Usuario deletado</response>
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpDelete("deletar/{idUsuario}")]
         [Authorize(Roles = "ADMINISTRADOR")]
         public async Task<ActionResult> DeletarUsuarioAsync([FromRoute] int idUsuario)
