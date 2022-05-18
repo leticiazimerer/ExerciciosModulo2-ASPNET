@@ -95,15 +95,11 @@ namespace BlogPessoalVS.src.repositorios.implementacoes
         /// </summary>
         /// <param nome="nome">Id do usuario</param>
         /// <return>UsuarioModelo</return>
-        public async Task<List<UsuarioModelo>> PegarUsuariosPeloNomeAsync(string nome)
+        public async Task<List<UsuarioModelo>> PegarUsuarioPeloNomeAsync(string nome)
         {
             return await _contexto.Usuarios
                         .Where(u => u.Nome.Contains(nome))
                         .ToListAsync();
-        }
-        public Task<List<UsuarioModelo>> PegarUsuarioPeloNomeAsync(string nome)
-        {
-            throw new System.NotImplementedException();
         }
         #endregion Metodos
     }
