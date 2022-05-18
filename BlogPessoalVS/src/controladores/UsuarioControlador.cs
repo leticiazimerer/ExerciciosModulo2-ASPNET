@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BlogPessoalVS.src.controladores
@@ -59,7 +60,7 @@ namespace BlogPessoalVS.src.controladores
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpGet]
         [Authorize(Roles = "NORMAL,ADMINISTRADOR")]
-        public async Task<ActionResult> PegarUsuarioPeloNomeAsync([FromQuery] string nomeUsuario) // from query, extrai o elemento do parametro
+        public async Task<ActionResult<List<UsuarioModelo>>> PegarUsuariosPeloNomeAsync([FromQuery] string nomeUsuario) // from query, extrai o elemento do parametro
         {
             var usuarios = await _repositorio.PegarUsuarioPeloNomeAsync(nomeUsuario);
             if (usuarios.Count < 1) return NoContent(); // < 1 = 0 - NoContent = erro 204
