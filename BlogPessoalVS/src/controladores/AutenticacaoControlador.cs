@@ -26,7 +26,7 @@ namespace BlogPessoalVS.src.controladores
         #region Métodos
 
         /// <summary>
-        /// Deletar usuario pelo Id
+        /// Autenticar usuario
         /// </summary>
         /// <param name="autenticacao">int</param>
         /// <returns>ActionResult</returns>
